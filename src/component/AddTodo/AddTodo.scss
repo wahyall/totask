@@ -1,0 +1,87 @@
+.add-todo {
+  .add-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background-color: #640eef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    overflow: hidden;
+    right: 20px;
+    bottom: 20px;
+    cursor: pointer;
+    z-index: 2;
+
+    img {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  .add-modal {
+    position: fixed;
+    z-index: 3;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    visibility: hidden;
+
+    .add-modal-dialog {
+      position: absolute;
+      height: 90vh;
+      background-color: #ffffff;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 2rem 2rem 0 0;
+      padding: 0 1.5rem;
+      transition: 0.3s;
+
+      .add-modal-header {
+        background-color: #fff;
+        position: fixed;
+        z-index: 2;
+        left: 0;
+        right: 0;
+        width: 100%;
+        padding: 0 1.5rem;
+        border-radius: 1.5rem 1.5rem 0 0;
+
+        h3 {
+          font-weight: 600;
+          padding-top: 1.5rem;
+          padding-bottom: 1rem;
+          border-bottom: 1px solid #1f2c52;
+        }
+      }
+
+      .add-modal-body {
+        margin-top: 67px;
+        padding-top: 1rem;
+        overflow-y: auto;
+        height: calc(90vh - 67px);
+      }
+    }
+  }
+
+  .add-modal.active {
+    visibility: visible;
+
+    .add-modal-dialog {
+      transform: translateY(0);
+    }
+  }
+
+  .add-modal.hide {
+    transition: visibility 0s 0.3s;
+    visibility: hidden;
+
+    .add-modal-dialog {
+      transform: translateY(100%);
+    }
+  }
+}

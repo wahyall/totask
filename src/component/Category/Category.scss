@@ -1,0 +1,76 @@
+.categories {
+  h6 {
+    color: #000950;
+    opacity: 0.4;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+    padding: 0 1.5rem;
+  }
+
+  .category-list {
+    display: flex;
+    justify-content: flex-start;
+    overflow-x: auto;
+
+    > div {
+      display: flex;
+      padding-left: 1.5rem;
+    }
+
+    .item {
+      padding: 1rem;
+      border-radius: 12px;
+      background-color: #ffffff;
+      box-shadow: 0 1rem 1.5rem -0.1rem rgba($color: #ea076f, $alpha: 0.1);
+      width: 180px;
+      margin-right: 1.5rem;
+      margin-bottom: 3rem;
+      display: inline-block;
+
+      .amount {
+        margin-top: 0.5rem;
+        color: #000950;
+        opacity: 0.4;
+        font-weight: 500;
+      }
+
+      .name {
+        font-weight: 600;
+        margin-top: 0.25rem;
+        margin-bottom: 1rem;
+        font-size: 1.3rem;
+        display: flex;
+        cursor: pointer;
+
+        span {
+          margin-right: 0.75rem;
+        }
+
+        img {
+          width: 10px;
+          margin-bottom: -1px;
+        }
+      }
+
+      .progress {
+        background-color: #dedceb;
+        width: 100%;
+        height: 4px;
+        border-radius: 8px;
+
+        .strock {
+          height: 4px;
+          border-radius: 8px;
+          background-color: #640eef;
+          box-shadow: 0 2px 8px rgba($color: #640eef, $alpha: 0.4);
+          transition: 0.2s;
+        }
+      }
+    }
+
+    .item.filtered {
+      border: 2px solid rgba($color: #2b2b55, $alpha: 0.75);
+    }
+  }
+}

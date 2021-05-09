@@ -1,0 +1,55 @@
+.remind {
+  h1 {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 1rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+    font-weight: 500;
+  }
+
+  .greeting {
+    margin-bottom: 2rem;
+    padding: 0 1.5rem;
+  }
+
+  .intro-modal {
+    position: fixed;
+    z-index: 3;
+    background-color: rgba($color: #000000, $alpha: 0.5);
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    .intro-modal-dialog {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      background-color: #ffffff;
+      padding: 2rem;
+      transition: 0.2s;
+
+      .intro-modal-img {
+        text-align: center;
+
+        img {
+          max-width: 400px;
+        }
+      }
+
+      h1,
+      h6 {
+        margin-top: 0;
+      }
+
+      .intro-modal-header {
+        margin-bottom: 1.5rem;
+      }
+    }
+  }
+}

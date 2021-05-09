@@ -1,0 +1,221 @@
+::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+}
+
+.app {
+  padding: 1.5rem 0;
+  background-color: #f9faff;
+  width: 100%;
+  max-width: 560px;
+  height: 100vh;
+  overflow: hidden;
+  overflow-y: auto;
+  position: relative;
+
+  @media (max-width: 576px) {
+    max-width: 100%;
+    height: 100vh;
+    border-radius: 0;
+  }
+
+  * {
+    color: #2b2b55;
+    pointer-events: visible;
+  }
+
+  p {
+    margin: 0;
+  }
+
+  .ck.ck-editor {
+    width: 100%;
+  }
+
+  .ck.ck-editor__main > .ck-editor__editable {
+    min-height: 200px;
+    border-radius: 0 0 0.75rem 0.75rem !important;
+  }
+
+  .ck.ck-editor__main > .ck-editor__editable.ck-focused {
+    border-color: #1f2c52;
+  }
+
+  .ck.ck-editor .ck.ck-toolbar.ck-toolbar_grouping {
+    border-radius: 0.75rem 0.75rem 0 0;
+  }
+
+  .badge {
+    font-size: 0.75rem;
+    line-height: 0.75rem;
+    border-radius: 12px;
+    padding: 0.15rem 0.75rem;
+    display: inline-block;
+    margin-bottom: 0.3rem;
+    font-weight: 300;
+  }
+
+  .badge.personal {
+    color: #2c2c7b;
+    background-color: rgba($color: #2c2c7b, $alpha: 0.2);
+  }
+
+  .badge.jobs {
+    color: #e74a11;
+    background-color: rgba($color: #e74a11, $alpha: 0.2);
+  }
+
+  .badge.workout {
+    color: #49570d;
+    background-color: rgba($color: #49570d, $alpha: 0.2);
+  }
+
+  .badge.finance {
+    color: #2600ff;
+    background-color: rgba($color: #2600ff, $alpha: 0.2);
+  }
+
+  .badge.study {
+    color: #c1a00c;
+    background-color: rgba($color: #c1a00c, $alpha: 0.2);
+  }
+
+  .badge.other {
+    color: #6d6c72;
+    background-color: rgba($color: #6d6c72, $alpha: 0.2);
+  }
+
+  .input-group {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+    position: relative;
+
+    label,
+    input {
+      width: 100%;
+    }
+
+    label {
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    input,
+    textarea {
+      border-radius: 0.75rem;
+      padding: 0.75rem 0.75rem;
+      outline: none;
+      border: 1px solid #c4c4c4;
+      color: #1f2c52;
+      width: 100%;
+      font-size: 1rem;
+      text-align: left;
+      font-family: inherit;
+    }
+
+    input:focus,
+    textarea:focus,
+    button:focus {
+      border: 1px solid #1f2c52 !important;
+      outline: none;
+    }
+
+    input.warn {
+      border-color: #e03812;
+    }
+
+    .dropdown-toggle {
+      font-size: 1rem;
+      text-align: left;
+      font-family: inherit;
+      border-radius: 0.75rem;
+      padding: 0.75rem 0.75rem;
+      outline: none;
+      border: 1px solid #c4c4c4;
+      width: 100%;
+      height: 44px;
+      background-color: #ffffff;
+      line-height: 1rem;
+      position: relative;
+    }
+
+    .dropdown-toggle::before {
+      content: url(images/caret-down.svg);
+      position: absolute;
+      width: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      right: 1rem;
+    }
+
+    .dropdown-menu {
+      display: none;
+      list-style: none;
+      position: absolute;
+      bottom: -20px;
+      transform: translateY(100%);
+      width: 100%;
+      padding: 0.5rem 0;
+      border-radius: 0.75rem;
+      border: 1px solid #c4c4c4;
+      background-color: #ffffff;
+      height: 170px;
+      overflow-y: auto;
+      z-index: 2;
+
+      li {
+        padding: 0.5rem 1rem;
+      }
+
+      li:hover {
+        background-color: #ececec;
+      }
+    }
+  }
+
+  .btn {
+    text-align: center;
+    font-weight: 600;
+    border: none !important;
+    cursor: pointer;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1rem;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    border-radius: 0.75rem;
+    background-color: transparent;
+  }
+
+  .btn:hover,
+  .btn:active,
+  .btn:focus {
+    border: none;
+  }
+
+  .btn-primary {
+    background-color: #1f2c52;
+    color: #ffffff !important;
+  }
+
+  .btn-primary:hover {
+    background-color: lighten($color: #1f2c52, $amount: 6);
+  }
+
+  .btn-light {
+    background-color: #ffffff;
+  }
+
+  .btn-danger {
+    background-color: #ff0e0e;
+    color: #ffffff !important;
+  }
+
+  .btn-danger:hover {
+    background-color: lighten($color: #ff0e0e, $amount: 6);
+  }
+}
