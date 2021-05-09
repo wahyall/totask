@@ -108,7 +108,7 @@ class App extends React.Component {
   saveUsername = (username) => {
     this.setState({
       username: username
-    }, this.updateLocalStorage)
+    })
   }
 
   addTask = (data) => {
@@ -193,7 +193,7 @@ class App extends React.Component {
 
     this.setState({
       renderedTasks: sortedRenderedTasks
-    }, this.updateLocalStorage);
+    });
   }
 
   sortFromNewTasks = (renderedTasks) => {
@@ -210,7 +210,7 @@ class App extends React.Component {
 
     this.setState({
       renderedTasks: sortedRenderedTasks
-    }, this.updateLocalStorage);
+    });
   }
 
   filterByCategory = (category) => {
@@ -239,6 +239,7 @@ class App extends React.Component {
 
   componentDidUpdate = () => {
     this.filterTasks();
+    this.updateLocalStorage();
   }
 
   componentDidMount = () => {
