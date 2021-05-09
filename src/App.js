@@ -86,7 +86,7 @@ class App extends React.Component {
   }
 
   autoRemoveCompletedTask = () => {
-    const tasksList = {...this.state.tasks};
+    const tasksList = this.state.tasks;
     for (const category in tasksList) {
       tasksList[category] = this.state.tasks[category].filter(task => task.completed === false)
     }
@@ -108,14 +108,14 @@ class App extends React.Component {
   saveUsername = (username) => {
     this.setState({
       username: username
-    })
+    }, this.updateLocalStorage);
   }
 
   addTask = (data) => {
     // Data Tasks
     const categoryName = data.categoryName;
     const newTask = data.newTask;
-    const tasksList = {...this.state.tasks};
+    const tasksList = this.state.tasks;
 
     tasksList[categoryName].push(newTask);
 
@@ -142,7 +142,7 @@ class App extends React.Component {
     // Data Tasks
     const categoryName = data.categoryName;
     const updatedTask = data.updatedTask;
-    const tasksList = {...this.state.tasks};
+    const tasksList = this.state.tasks;
     const taskIndex = tasksList[categoryName].map(task => task.id).indexOf(updatedTask.id);
 
     // Memperbarui task sebelumnya dengan task baru
@@ -157,7 +157,7 @@ class App extends React.Component {
     // Data Tasks
     const categoryList = this.state.tasks[data.category];
     const id = data.id;
-    const tasksList = {...this.state.tasks};
+    const tasksList = this.state.tasks;
 
     // Filter tasks dengan task.id yang tidak sama dengan task.id yang akan dihapus
     const filteredCategoryList = categoryList.filter(task => task.id !== id);
@@ -170,7 +170,7 @@ class App extends React.Component {
 
   setupRenderedTasks = () => {
     // Mengambil seluruh task dan memasukkanya ke dalam renderedTasks yang akan ditampilkan ke layar
-    const tasksList = {...this.state.tasks};
+    const tasksList = this.state.tasks;
     const newRenderedTasks = [];
     for (const category in tasksList) {
       tasksList[category].forEach(task => newRenderedTasks.push(task))
@@ -193,7 +193,7 @@ class App extends React.Component {
 
     this.setState({
       renderedTasks: sortedRenderedTasks
-    });
+    }, this.updateLocalStorage);
   }
 
   sortFromNewTasks = (renderedTasks) => {
@@ -210,7 +210,7 @@ class App extends React.Component {
 
     this.setState({
       renderedTasks: sortedRenderedTasks
-    });
+    }, this.updateLocalStorage);
   }
 
   filterByCategory = (category) => {
@@ -237,15 +237,9 @@ class App extends React.Component {
     }
   }
 
-  componentDidUpdate = () => {
-    this.filterTasks();
-    this.updateLocalStorage();
-  }
-
   componentDidMount = () => {
     this.preventDefaultBtns();
     this.isTomorrow();
-    this.sortFromNewTasks(this.state.renderedTasks);
   }
 
   render() {    
