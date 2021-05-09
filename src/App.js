@@ -226,7 +226,7 @@ class App extends React.Component {
     tasks.forEach(task => task.style.display = 'none');
 
     if (this.state.filterCategory) {
-      // Memfilter tasks yang category nya nama dengan category yang dipilih
+      // Memfilter tasks yang category nya sama dengan category yang dipilih
       const filteredTasks = tasks.filter(task => task.getAttribute('category') === this.state.filterCategory);
 
       // Menampilkan tasks yang sudah difilter
