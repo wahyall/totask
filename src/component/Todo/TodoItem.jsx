@@ -189,17 +189,10 @@ class TodoItem extends React.Component {
     })
   }
 
-  createTempDesc = () => {
-    return {__html: this.props.temp};
-  }
-
-  createMainDesc = () => {
-    return {__html: this.props.desc};
-  }
-
   componentDidMount = () => {
     // Check user device
-    if( /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+    if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+      // In mobile device
       if (window.matchMedia("(max-width: 575.98px)").matches) {
         this.swipeItem();
       }
@@ -226,7 +219,7 @@ class TodoItem extends React.Component {
                 <div className="title">{this.props.name}</div>
               </div>
               <div style={{display: 'flex'}}>
-                <div className="desc" ref={this.mainDesc} dangerouslySetInnerHTML={this.createTempDesc()}></div>
+                <div className="desc" ref={this.mainDesc} dangerouslySetInnerHTML={{__html: this.props.temp}}></div>
               </div>
             </div>
           </div>
@@ -247,7 +240,7 @@ class TodoItem extends React.Component {
           </div>
           <div className="content" ref={this.detailContent}>
             <div className="title">{this.props.name}</div>
-            <div className="desc" ref={this.detailDesc} dangerouslySetInnerHTML={this.createMainDesc()}></div>
+            <div className="desc" ref={this.detailDesc} dangerouslySetInnerHTML={{__html: this.props.desc}}></div>
           </div>
         </div>
         <EditTodo active={this.state.isModalActive} 

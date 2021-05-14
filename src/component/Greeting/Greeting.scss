@@ -33,6 +33,9 @@
       background-color: #ffffff;
       padding: 2rem;
       transition: 0.2s;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
       .intro-modal-img {
         text-align: center;

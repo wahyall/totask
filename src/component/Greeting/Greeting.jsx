@@ -53,26 +53,28 @@ class Greeting extends React.Component {
             </div>
             <div className="intro-modal" ref={this.introModal}>
                <div className="intro-modal-dialog">
-                  <div className="intro-modal-img">
-                     <img src={hello} alt="Hello"/>
-                  </div>
-                  <div className="intro-modal-header">
-                     <h1>Hello, Stranger!</h1>
-                     <h6>What's your name?</h6>
-                  </div>
-                  <div className="intro-modal-body">
-                     <form>
-                        <div className="input-group">
-                           <input type="text" id="username" name="username" autoComplete="off"
-                           ref={this.username}/>
-                        </div>
-                        <div className="input-group">
-                           <button type="submit" className="btn btn-primary" id="saveName" name="saveName"
-                              onClick={this.saveUsername}>
-                              Save
-                           </button>
-                        </div>
-                     </form>
+                  <div style={{width: '100%'}}>
+                     <div className="intro-modal-img">
+                        <img src={hello} alt="Hello"/>
+                     </div>
+                     <div className="intro-modal-header">
+                        <h1>Hello, Stranger!</h1>
+                        <h6>What's your name?</h6>
+                     </div>
+                     <div className="intro-modal-body">
+                        <form>
+                           <div className="input-group">
+                              <input type="text" id="username" name="username" autoComplete="off"
+                              ref={this.username}/>
+                           </div>
+                           <div className="input-group">
+                              <button type="submit" className="btn btn-primary" id="saveName" name="saveName"
+                                 onClick={this.saveUsername}>
+                                 Save
+                              </button>
+                           </div>
+                        </form>
+                     </div>
                   </div>
                </div>
             </div>

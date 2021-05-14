@@ -81,7 +81,7 @@ class App extends React.Component {
       this.setState({
         // Mengatur ulang tempDate menjadi tanggal sekarang
         tempDate: this.setupTempDate()
-      })
+      });
     }
   }
 
@@ -93,7 +93,7 @@ class App extends React.Component {
 
     this.setState({
       tasks: tasksList
-    });
+    }, this.setupRenderedTasks);
   }
 
   preventDefaultBtns = () => {
@@ -240,6 +240,7 @@ class App extends React.Component {
   componentDidMount = () => {
     this.preventDefaultBtns();
     this.isTomorrow();
+    this.sortFromNewTasks(this.state.renderedTasks);
   }
 
   render() {    
