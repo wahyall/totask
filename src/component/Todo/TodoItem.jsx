@@ -108,6 +108,11 @@ class TodoItem extends React.Component {
 
       } else {
         dragItem.removeEventListener("touchmove", drag);
+        if (xOffset >= -18) {
+          setTranslate(0);
+        } else if (xOffset < -18) {
+          setTranslate(-36);
+        }
       }
     }
 
