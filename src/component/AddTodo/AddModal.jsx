@@ -63,6 +63,7 @@ class AddModal extends React.Component {
       document.querySelector('.add-modal-body').scrollTo(0, 0);
       this.state.editor.setData('');
       this.formTask.current.reset();
+      this.buttonDropdown.current.value = 'Personal';
       this.buttonDropdown.current.innerHTML = 'Personal';
     }, 300);
   }
