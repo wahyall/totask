@@ -243,44 +243,31 @@ class App extends React.Component {
     this.sortFromNewTasks(this.state.renderedTasks);
   }
 
-  render() {    
-    let mainContent;
-    let greetingCaption;
-
-    if (this.state.renderedTasks.length) {
-      // Saat ada task
-      mainContent = (
-        <div>
-          <Categories categories={this.state.tasks}
-            filterByCategory={(category) => this.filterByCategory(category)}
-            filtered={this.state.filterCategory} />
-          <Todos 
-            tasks={this.state.renderedTasks} 
-            updateTask={(task) => this.updateTask(task)}
-            removeTask={(task) => this.removeTask(task)}
-            appScroll={this.state.appScroll}
-            filterName={this.state.filterCategory}
-            onRemoveFilterCategory={() => this.filterByCategory()} />
-        </div>
-      );
-      greetingCaption = "Let's finish Your Tasks!";
-    } else {
-      // Saat tidak ada task
-      mainContent = (
-        <div>
-          <NoTasks />
-        </div>
-      );
-      greetingCaption = "There are No Tasks For You";
-    }
-
+  render() {
     return (
       <div className="app" ref={this.app}>
         <Greeting 
           onSaveUsername={(username) => this.saveUsername(username)} 
           username={this.state.username}
-          caption={greetingCaption} />
-        {mainContent}
+          caption={this.state.renderedTasks.length ? "Let's finish Your Tasks!" : "There are No Tasks For You"} />
+        {this.state.renderedTasks.length ? (
+          <div>
+            <Categories categories={this.state.tasks}
+              filterByCategory={(category) => this.filterByCategory(category)}
+              filtered={this.state.filterCategory} />
+            <Todos 
+              tasks={this.state.renderedTasks} 
+              updateTask={(task) => this.updateTask(task)}
+              removeTask={(task) => this.removeTask(task)}
+              appScroll={this.state.appScroll}
+              filterName={this.state.filterCategory}
+              onRemoveFilterCategory={() => this.filterByCategory()} />
+          </div>
+        ) : (
+          <div>
+            <NoTasks />
+          </div>
+        )}
         <AddTodo onAddTask={(task) => this.addTask(task)} />
       </div>
     );
