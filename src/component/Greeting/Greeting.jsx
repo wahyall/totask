@@ -5,15 +5,11 @@ import hello from './../../images/hello.svg';
 class Greeting extends React.Component {
    constructor(props) {
       super(props);
-
       this.state = {
          username: this.props.username.length ? this.props.username : 'Stranger'
       };
-
       this.username = React.createRef();
       this.introModal = React.createRef();
-
-      this.saveUsername = this.saveUsername.bind(this);
    }
 
    saveUsername = () => {

@@ -1,17 +1,22 @@
-import React from 'react';
+import React, { createContext } from 'react';
 import './App.scss';
+
+// Component
 import Greeting from './component/Greeting/Greeting';
 import Categories from './component/Category/Categories';
 import Todos from './component/Todo/Todos';
 import AddTodo from './component/AddTodo/AddTodo';
 import NoTasks from './component/NoTasks/NoTasks';
 
+// Store Context
+const Store = createContext();
+const Provider = Store.Provider;
+
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = localStorage.getItem('TOTASKS') ? this.getDataLocalStorage() : this.setupLocalStorage();
     this.app = React.createRef();
-    this.preventDefaultBtns = this.preventDefaultBtns.bind(this);
   }
 
   setupLocalStorage = () => {
@@ -237,6 +242,28 @@ class App extends React.Component {
     }
   }
 
+  dispatch = (action) => {
+    switch (action.type) {
+      case 'SAVE_USERNAME':
+        return this.saveUsername();
+      
+      case 'FILTER_BY_CATEGORY':
+        return this.filterByCategory();
+
+      case 'UPDATE_TASK':
+        return this.updateTask();
+
+      case 'REMOVE_TASK':
+        return this.removeTask();
+
+      case 'ADD_TASK':
+        return this.addTask();
+    
+      default:
+        break;
+    }
+  }
+
   componentDidMount = () => {
     this.preventDefaultBtns();
     this.isTomorrow();
@@ -246,29 +273,30 @@ class App extends React.Component {
   render() {
     return (
       <div className="app" ref={this.app}>
-        <Greeting 
-          onSaveUsername={(username) => this.saveUsername(username)} 
-          username={this.state.username}
-          caption={this.state.renderedTasks.length ? "Let's finish Your Tasks!" : "There are No Tasks For You"} />
-        {this.state.renderedTasks.length ? (
-          <div>
-            <Categories categories={this.state.tasks}
-              filterByCategory={(category) => this.filterByCategory(category)}
-              filtered={this.state.filterCategory} />
-            <Todos 
-              tasks={this.state.renderedTasks} 
-              updateTask={(task) => this.updateTask(task)}
-              removeTask={(task) => this.removeTask(task)}
-              appScroll={this.state.appScroll}
-              filterName={this.state.filterCategory}
-              onRemoveFilterCategory={() => this.filterByCategory()} />
-          </div>
-        ) : (
-          <div>
-            <NoTasks />
-          </div>
-        )}
-        <AddTodo onAddTask={(task) => this.addTask(task)} />
+        <Provider value={this.state}>
+          <Greeting 
+            onSaveUsername={(username) => this.saveUsername(username)} 
+            username={this.state.username}
+            caption={this.state.renderedTasks.length ? "Let's finish Your Tasks!" : "There are No Tasks For You"} />
+          {this.state.renderedTasks.length ? (
+            <div>
+              <Categories categories={this.state.tasks}
+                filterByCategory={(category) => this.filterByCategory(category)}
+                filtered={this.state.filterCategory} />
+              <Todos 
+                tasks={this.state.renderedTasks} 
+                updateTask={(task) => this.updateTask(task)}
+                removeTask={(task) => this.removeTask(task)}
+                filterName={this.state.filterCategory}
+                onRemoveFilterCategory={() => this.filterByCategory()} />
+            </div>
+          ) : (
+            <div>
+              <NoTasks />
+            </div>
+          )}
+          <AddTodo onAddTask={(task) => this.addTask(task)} />
+        </Provider>
       </div>
     );
   }
