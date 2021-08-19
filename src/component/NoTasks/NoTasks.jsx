@@ -2,7 +2,14 @@ import React from 'react';
 import './NoTasks.scss';
 import relax from './../../images/relax.svg';
 
-const NoTasks = () => {
+// Store context
+import { GlobalConsumer } from '../../store/store';
+
+const NoTasks = (props) => {
+   if (props.state.renderedTasks.length) {
+      return null;
+   }
+
    return (
       <div className="no-tasks">
          <img src={relax} alt="Relax"/>
@@ -11,4 +18,4 @@ const NoTasks = () => {
    )
 }
 
-export default NoTasks;
+export default GlobalConsumer(NoTasks);

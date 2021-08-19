@@ -2,6 +2,9 @@ import React from 'react';
 import './Todo.scss';
 import TodoItem from './TodoItem';
 
+// Store context
+import { GlobalConsumer } from '../../store/store';
+
 class Todos extends React.Component {
   updateTask = (task) => {
     this.props.updateTask({
@@ -14,21 +17,21 @@ class Todos extends React.Component {
     this.props.removeTask(data);
   }
 
-  removeFilterCategory = () => {
-    this.props.onRemoveFilterCategory();
-  }
-
   render() {
+    if (!this.props.state.renderedTasks.length) {
+      return null;
+    }
+
     return (
       <div className="todos">
         <h6>
           <span>TASKS LIST</span>
-          <span className={`filter-category badge personal ${this.props.filterName ? 'active' : ''}`}
-            onClick={this.removeFilterCategory}>{this.props.filterName} &times;</span>
+          <span className={`filter-category badge personal ${this.props.state.filterCategory ? 'active' : ''}`}
+            onClick={() => this.props.dispatch({type: 'REMOVE_FILTER_CATEGORY'})}>{this.props.state.filterCategory} &times;</span>
         </h6>
         <div className="todo-list">
-          {this.props.tasks.map(task => {
-            return <TodoItem
+          {this.props.state.renderedTasks.map(task => (
+            <TodoItem
               key={task.id}
               category={task.category}
               name={task.name}
@@ -36,14 +39,12 @@ class Todos extends React.Component {
               temp={task.temp}
               id={task.id}
               index={task.index}
-              completed={task.completed}
-              onUpdateTask={(task) => this.updateTask(task)}
-              onRemoveTask={(data) => this.removeTask(data)} />
-          })}
+              completed={task.completed} />
+          ))}
         </div>
       </div>
     )
   }
 }
 
-export default Todos;
+export default GlobalConsumer(Todos);

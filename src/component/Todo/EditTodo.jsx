@@ -2,6 +2,9 @@ import React from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
+// Store context
+import { GlobalConsumer } from '../../store/store';
+
 class EditTodo extends React.Component {
   constructor(props) {
     super(props);
@@ -11,7 +14,7 @@ class EditTodo extends React.Component {
     this.cancelEdit = React.createRef();
   }
 
-  hideModal = (ev) => {
+  hideModal = () => {
     this.modal.current.classList.remove('active');
     this.modal.current.classList.add('hide');
     this.props.onHideModal();
@@ -23,7 +26,7 @@ class EditTodo extends React.Component {
     }
   }
 
-  changeTask = (ev) => {
+  editTask = (ev) => {
     ev.preventDefault();
 
     const form = this.formTask.current;
@@ -43,7 +46,7 @@ class EditTodo extends React.Component {
         name: taskName,
         desc: taskDesc,
         temp: tempDesc
-      })
+      });
 
       this.hideModal();
     } else {
@@ -104,7 +107,7 @@ class EditTodo extends React.Component {
               </div>
               <div className="input-group" style={{ marginTop: '3rem', marginBottom: '0' }}>
                 <button type="submit" className="btn btn-primary" id="saveChange" name="saveChange"
-                  onClick={this.changeTask}>
+                  onClick={this.editTask}>
                   Save Change
                     </button>
                 <button className="btn" id="cancelChange" name="cancelChange"
@@ -121,4 +124,4 @@ class EditTodo extends React.Component {
   }
 }
 
-export default EditTodo;
+export default GlobalConsumer(EditTodo);

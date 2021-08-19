@@ -2,11 +2,13 @@ import React from 'react';
 import './Category.scss';
 import CategoryItem from './CategoryItem';
 
+// Store context
+import { GlobalConsumer } from '../../store/store';
+
 class Category extends React.Component {
   constructor(props) {
     super(props);
     this.listCategory = React.createRef();
-    this.draggableOverflow = this.draggableOverflow.bind(this);
   }
 
   draggableOverflow = () => {
@@ -58,16 +60,14 @@ class Category extends React.Component {
     dragElem.addEventListener('mousedown', mouseDownHandler);
   }
 
-  setFilterCategory = (category) => {
-    this.props.filterByCategory(category);
-  }
-
   componentDidMount = () => {
-    this.draggableOverflow();
+    if (this.props.state.renderedTasks.length) {
+      this.draggableOverflow();
+    }
   }
 
   render() {
-    const categories = this.props.categories;
+    const categories = this.props.state.tasks;
     const renderedCategories = [];
 
     for (const key in categories) {
@@ -85,16 +85,21 @@ class Category extends React.Component {
       }
     }
 
+    if (!renderedCategories.length) {
+      return null;
+    }
+
     return (
       <div className="categories">
         <h6>CATEGORIES</h6>
         <div className="category-list" ref={this.listCategory}>
             <div>
-              {renderedCategories.map(category => {
-                  return <CategoryItem key={category.name} name={category.name} total={category.total} percent={category.percent}
-                    onFilterCategory={(category) => this.setFilterCategory(category)}
-                    filtered={this.props.filtered} />
-              })}
+              {renderedCategories.map(category => (
+                <CategoryItem key={category.name} 
+                  name={category.name}
+                  total={category.total}
+                  percent={category.percent} />
+              ))}
             </div>
         </div>
       </div>
@@ -102,4 +107,4 @@ class Category extends React.Component {
   }
 }
 
-export default Category;
+export default GlobalConsumer(Category);

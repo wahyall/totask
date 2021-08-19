@@ -33,7 +33,7 @@ class AddModal extends React.Component {
     const taskId = new Date().getTime();
 
     if (taskName !== '' && taskName !== ' ') {
-      this.props.onMakeNewTask({
+      this.props.onCreateTask({
         name: taskName,
         category: taskCategory,
         desc: taskDesc,

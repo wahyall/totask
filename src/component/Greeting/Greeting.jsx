@@ -2,11 +2,14 @@ import React from 'react';
 import './Greeting.scss';
 import hello from './../../images/hello.svg';
 
+// Store context
+import { GlobalConsumer } from '../../store/store';
+
 class Greeting extends React.Component {
    constructor(props) {
       super(props);
       this.state = {
-         username: this.props.username.length ? this.props.username : 'Stranger'
+         username: this.props.state.username.length ? this.props.state.username : 'Stranger'
       };
       this.username = React.createRef();
       this.introModal = React.createRef();
@@ -20,7 +23,7 @@ class Greeting extends React.Component {
          }, this.hideModal)
       }
 
-      this.props.onSaveUsername(username);
+      this.props.dispatch({type: 'SAVE_USERNAME', username});
    }
 
    hideModal = () => {
@@ -32,8 +35,7 @@ class Greeting extends React.Component {
    }
 
    componentDidMount = () => {
-      const username = this.props.username;
-      if (username === '') {
+      if (!this.props.state.username.length) {
          this.showModal();
       } else {
          this.hideModal();
@@ -44,8 +46,8 @@ class Greeting extends React.Component {
       return (
          <div className="remind">
             <div className="greeting">
-               <h1>What's Up, {this.state.username}!</h1>
-               <h6>{this.props.caption}</h6>
+               <h1>What's Up, {this.props.state.username}!</h1>
+               <h6>{this.props.state.renderedTasks.length ? "Let's finish Your Tasks!" : "There are No Tasks For You"}</h6>
             </div>
             <div className="intro-modal" ref={this.introModal}>
                <div className="intro-modal-dialog">
@@ -79,4 +81,4 @@ class Greeting extends React.Component {
    }
 }
 
-export default Greeting;
+export default GlobalConsumer(Greeting);

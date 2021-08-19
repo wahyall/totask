@@ -1,6 +1,9 @@
 import React from 'react';
 import EditTodo from './EditTodo';
 
+// Store context
+import { GlobalConsumer } from '../../store/store';
+
 // Image assets
 import check from './../../images/check.png';
 import uncheck from './../../images/uncheck.png';
@@ -23,11 +26,6 @@ class TodoItem extends React.Component {
     this.detailContent = React.createRef();
     this.detailDesc = React.createRef();
     this.removeBtn = React.createRef();
-    this.editModal = React.createRef();
-
-    this.swipeItem = this.swipeItem.bind(this);
-    this.showDetail = this.showDetail.bind(this);
-    this.hideDetail = this.hideDetail.bind(this);
   }
 
   swipeItem = () => {
@@ -138,38 +136,44 @@ class TodoItem extends React.Component {
   }
 
   updateTask = () => {
-    this.props.onUpdateTask({
-      name: this.props.name,
-      category: this.props.category,
-      desc: this.props.desc,
-      id: this.props.id,
-      completed: this.state.isCompleted,
-      index: this.props.index,
-      temp: this.props.temp
-    });
+    this.props.dispatch({type: 'UPDATE_TASK', data: {
+      categoryName: this.props.category.toLowerCase(),
+      updatedTask: {
+        name: this.props.name,
+        category: this.props.category,
+        desc: this.props.desc,
+        id: this.props.id,
+        completed: this.state.isCompleted,
+        index: this.props.index,
+        temp: this.props.temp
+      }
+    }});
+  }
+
+  editTask = (task) => {
+    this.props.dispatch({type: 'UPDATE_TASK', data: {
+      categoryName: this.props.category.toLowerCase(),
+      updatedTask: {
+        name: task.name,
+        category: this.props.category,
+        desc: task.desc,
+        id: this.props.id,
+        completed: this.state.isCompleted,
+        index: this.props.index,
+        temp: task.temp
+      }
+    }});
   }
 
   removeTask = () => {
     this.todoItem.current.classList.add('remove');
     
     setTimeout(() => {
-      this.props.onRemoveTask({
+      this.props.dispatch({type: 'REMOVE_TASK', task: {
         category: this.props.category.toLowerCase(),
         id: this.props.id
-      });
+      }});
     }, 300);
-  }
-
-  editTask = (data) => {
-    this.props.onUpdateTask({
-      name: data.name,
-      category: this.props.category,
-      desc: data.desc,
-      id: this.props.id,
-      completed: this.state.isCompleted,
-      index: this.props.index,
-      temp: data.temp
-    });
   }
 
   showModal = () => {
@@ -177,7 +181,7 @@ class TodoItem extends React.Component {
       isModalActive: true
     }, () => {
       setTimeout(() => {
-        this.editModal.current.modalDialog.current.style.transition = '0s';
+        this.editModal.style.transition = '0s';
       }, 300);
 
       this.setState({
@@ -190,7 +194,7 @@ class TodoItem extends React.Component {
     this.setState({
       isModalActive: false
     }, () => {
-      this.editModal.current.modalDialog.current.style.transition = '.3s';
+      this.editModal.style.transition = '.3s';
     })
   }
 
@@ -205,12 +209,15 @@ class TodoItem extends React.Component {
       this.removeBtn.current.style.position = 'static';
       this.removeBtn.current.style.marginRight = '0.5rem';
     }
+
+    this.editModal = document.querySelector(`#todo-${this.props.id} .edit-modal-dialog`);
   }
 
   render() {
+    console.log(this)
     return (
       <div className={`todo-item ${this.props.completed ? 'check' : ''}`} 
-        id={this.props.id} 
+        id={'todo-' + this.props.id} 
         ref={this.todoItem}
         category={this.props.category} >
         <div className="main" ref={this.mainTodo}>
@@ -248,15 +255,15 @@ class TodoItem extends React.Component {
             <div className="desc" ref={this.detailDesc} dangerouslySetInnerHTML={{__html: this.props.desc}}></div>
           </div>
         </div>
-        <EditTodo active={this.state.isModalActive} 
-          onHideModal={this.hideModal} 
-          ref={this.editModal}
+        <EditTodo
+          active={this.state.isModalActive}
+          onHideModal={this.hideModal}
           taskName={this.props.name}
           taskDesc={this.state.taskDesc}
-          onEditTask={(data) => this.editTask(data)} />
+          onEditTask={(task) => this.editTask(task)} />
       </div>
     )
   }
 }
 
-export default TodoItem;
+export default GlobalConsumer(TodoItem);

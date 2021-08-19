@@ -3,6 +3,9 @@ import './AddTodo.scss';
 import addBtn from './../../images/plus.png';
 import AddModal from './AddModal';
 
+// Store context
+import { GlobalConsumer } from '../../store/store';
+
 class AddTodo extends React.Component {
    constructor(props) {
       super(props);
@@ -11,7 +14,6 @@ class AddTodo extends React.Component {
       }
       this.addBtn = React.createRef();
       this.addModal = React.createRef();
-      this.showModal = this.showModal.bind(this);
    }
 
    showModal = () => {
@@ -32,12 +34,12 @@ class AddTodo extends React.Component {
       })
    }
 
-   makeNewTask = (task) => {
+   createTask = (task) => {
       const taskCategory = task.category.toLowerCase();
-      this.props.onAddTask({
+      this.props.dispatch({type: 'ADD_TASK', data: {
          categoryName: taskCategory,
          newTask: task
-      });
+      }});
    }
 
    render() {
@@ -49,10 +51,10 @@ class AddTodo extends React.Component {
             <AddModal active={this.state.isModalActive} 
                ref={this.addModal}
                onHideModal={() => this.hideModal()}
-               onMakeNewTask={(task) => this.makeNewTask(task)} />
+               onCreateTask={(task) => this.createTask(task)} />
          </div>
       )
    }
 }
 
-export default AddTodo;
+export default GlobalConsumer(AddTodo);
