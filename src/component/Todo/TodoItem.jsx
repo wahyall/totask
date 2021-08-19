@@ -214,7 +214,6 @@ class TodoItem extends React.Component {
   }
 
   render() {
-    console.log(this)
     return (
       <div className={`todo-item ${this.props.completed ? 'check' : ''}`} 
         id={'todo-' + this.props.id} 
